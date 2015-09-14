@@ -5,9 +5,9 @@ public class Action {
     private Entity attacker, target;
     private Weapon attackerWeapon;
 
-    public Action(Entity atkr, Weapon atckWp, Entity victm) {
+    public Action(Entity atkr, Entity victm) {
+        //Attacking
         attacker = atkr;
-        attackerWeapon = atckWp;
         target = victm;
     }
 

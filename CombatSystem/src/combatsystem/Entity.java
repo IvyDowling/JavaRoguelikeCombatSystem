@@ -34,6 +34,10 @@ public class Entity {
         }
     }
 
+    public boolean isInWeaponList(Weapon w) {
+        return weapons.contains((Weapon) w);
+    }
+
     public boolean addWeapon(Weapon wp) {
         if ((wp.getWeight() + getCurrentWeaponWeight()) > strength) {
             return false;
