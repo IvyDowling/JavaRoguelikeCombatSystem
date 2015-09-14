@@ -33,4 +33,8 @@ public class CombatSystem {
         actionQueue.add(a);
     }
 
+    public Action getNextAction() {
+        return actionQueue.remove();
+    }
+
 }
