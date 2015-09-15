@@ -10,60 +10,27 @@ public class Entity {
     private int height, weight;
     private int strength, dexterity;
     private Body body;
-    private List<Weapon> weapons;
+    private WeaponInventory weaponList;
 
-    public Entity(int h, int w, int str, int dex, List<Weapon> weaponsList) {
-        weapons = new LinkedList<>();
+    public Entity(int h, int w, int str, int dex) {
         height = h;
         weight = w;
         dexterity = dex;
         strength = str;
-        int carryingCap = str;
-        if (weaponsList != null) {
-            while (!weaponsList.isEmpty()) {
-                int wpWeight = weaponsList.get(0).getWeight();
-                if (carryingCap > wpWeight) {
-                    weapons.add(weaponsList.remove(0));
-                    carryingCap = carryingCap - wpWeight;
-                    System.out.println("added " + weapons.get(weapons.size() - 1));
-                } else {
-                    System.out.println(weaponsList.toString());
-                    weaponsList.clear();
-                }
-            }
-        }
+        weaponList = new WeaponInventory(strength);
     }
-
-    public boolean isInWeaponList(Weapon w) {
-        return weapons.contains((Weapon) w);
-    }
-
-    public boolean addWeapon(Weapon wp) {
-        if ((wp.getWeight() + getCurrentWeaponWeight()) > strength) {
-            return false;
-        } else {
-            weapons.add(wp);
-            return true;
-        }
-    }
-
-    public boolean addWeapon(Collection<Weapon> wps) {
-        int currentWeight = getCurrentWeaponWeight();
-        Iterator it = wps.iterator();
-        while (it.hasNext()) {
-            Weapon temp = (Weapon) it.next();
-            if (currentWeight + temp.getWeight() > strength) {
-                //too heavy, dont add + return false
-                return false;
-            } else {
-                weapons.add(temp);
-                currentWeight += temp.getWeight();
-            }
-        }
-        return true;
+    public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
+        height = h;
+        weight = w;
+        dexterity = dex;
+        strength = str;
+        weaponList = new WeaponInventory(strength, wepList);
     }
 
     public int getDamage(Weapon wp) {
+        if(wp == null){
+            return 0;
+        }
         int finalDamage = 0;
         if (wp.isIsSharp()) {
             finalDamage = finalDamage + wp.getSharpnessBonus();
@@ -74,16 +41,6 @@ public class Entity {
             finalDamage = 0;
         }
         return finalDamage;
-    }
-
-    private int getCurrentWeaponWeight() {
-        int i = 0;
-        int wepWeight = 0;
-        while (i < weapons.size()) {
-            wepWeight = wepWeight + weapons.get(i).getWeight();
-            i++;
-        }
-        return wepWeight;
     }
 
     public int getHeight() {
@@ -108,9 +65,5 @@ public class Entity {
 
     public BodyPart getBodyPart(BodyComponent c) {
         return body.getBodyPart(c);
-    }
-
-    public List<Weapon> getWeapons() {
-        return weapons;
     }
 }
