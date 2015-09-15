@@ -1,8 +1,5 @@
 package combatsystem;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Entity {
@@ -10,21 +7,21 @@ public class Entity {
     private int height, weight;
     private int strength, dexterity;
     private Body body;
-    private WeaponInventory weaponList;
+    private WeaponInventory weaponInventory;
 
     public Entity(int h, int w, int str, int dex) {
         height = h;
         weight = w;
         dexterity = dex;
         strength = str;
-        weaponList = new WeaponInventory(strength);
+        weaponInventory = new WeaponInventory(strength);
     }
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
         height = h;
         weight = w;
         dexterity = dex;
         strength = str;
-        weaponList = new WeaponInventory(strength, wepList);
+        weaponInventory = new WeaponInventory(strength, wepList);
     }
 
     public int getDamage(Weapon wp) {

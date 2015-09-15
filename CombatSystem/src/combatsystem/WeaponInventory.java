@@ -18,6 +18,10 @@ public class WeaponInventory {
         strength = str;
         addWeapon(wepList);
     }
+     
+    public void clearInventory(){
+        allWeapons.clear();
+    }
 
     public boolean equipWeapon(Weapon wp) {
         if (wp == null) {
