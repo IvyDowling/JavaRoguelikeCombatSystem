@@ -6,7 +6,6 @@ public abstract class Action {
 
     //Always check dex to get priotiry
     public Action(Entity atkr, Entity victm) {
-        //Attacking
         attacker = atkr;
         target = victm;
     }

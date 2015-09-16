@@ -7,7 +7,7 @@ import java.util.List;
 public class WeaponInventory {
 
     private List<Weapon> allWeapons;
-    private Weapon[] equippedWeapons = new Weapon[1];
+    private Weapon[] equippedWeapons = new Weapon[2];
     private int strength;
 
     public WeaponInventory(int str) {
@@ -18,8 +18,8 @@ public class WeaponInventory {
         strength = str;
         this.addWeapon(wepList);
     }
-     
-    public void clearInventory(){
+
+    public void clearInventory() {
         allWeapons.clear();
     }
 
@@ -107,9 +107,11 @@ public class WeaponInventory {
         }
         return wepWeight;
     }
+
     public List<Weapon> getWeapons() {
         return allWeapons;
     }
+
     public Weapon[] getEquippedWeapons() {
         return equippedWeapons;
     }

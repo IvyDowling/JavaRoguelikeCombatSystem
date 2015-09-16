@@ -10,6 +10,14 @@ public class SwapAction extends Action {
         newWeapon = newWp;
     }
 
+    public Weapon getOldWeapon() {
+        return oldWeapon;
+    }
+
+    public Weapon getNewWeapon() {
+        return newWeapon;
+    }
+
     @Override
     public String toString() {
         return super.getAttacker().toString() + " switching: " + oldWeapon.toString() + " with " + newWeapon.toString();
