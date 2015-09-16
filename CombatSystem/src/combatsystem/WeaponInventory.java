@@ -16,7 +16,7 @@ public class WeaponInventory {
 
     public WeaponInventory(int str, List<Weapon> wepList) {
         strength = str;
-        addWeapon(wepList);
+        this.addWeapon(wepList);
     }
      
     public void clearInventory(){
