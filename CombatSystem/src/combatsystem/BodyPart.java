@@ -6,4 +6,9 @@ public abstract class BodyPart {
     boolean isImpaired;
     boolean isArmored;
     BodyComponent component;
+
+    @Override
+    public String toString() {
+        return component + " " + health;
+    }
 }

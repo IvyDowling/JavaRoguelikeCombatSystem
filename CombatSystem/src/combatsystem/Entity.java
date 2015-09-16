@@ -7,21 +7,21 @@ public class Entity {
     private int height, weight;
     private int strength, dexterity;
     private Body body;
-    private WeaponInventory weaponInventory;
+    private WeaponInventory weapons;
 
     public Entity(int h, int w, int str, int dex) {
         height = h;
         weight = w;
         dexterity = dex;
         strength = str;
-        weaponInventory = new WeaponInventory(strength);
+        weapons = new WeaponInventory(strength);
     }
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
         height = h;
         weight = w;
         dexterity = dex;
         strength = str;
-        weaponInventory = new WeaponInventory(strength, wepList);
+        weapons = new WeaponInventory(strength, wepList);
     }
 
     public int getDamage(Weapon wp) {
@@ -62,5 +62,11 @@ public class Entity {
 
     public BodyPart getBodyPart(BodyComponent c) {
         return body.getBodyPart(c);
+    }
+    
+    @Override
+    public String toString(){
+        return "h: " + height + " w: " + weight + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " wpList: " + weapons.toString();
+                
     }
 }

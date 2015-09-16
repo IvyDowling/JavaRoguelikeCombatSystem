@@ -20,4 +20,9 @@ public class Body {
                 return null;
         }
     }
+    
+    @Override
+    public String toString(){
+        return lArm.toString() + " " + rArm.toString() + " " + lLeg.toString() + " " + rLeg.toString() + " " + torso.toString();
+    }
 }
