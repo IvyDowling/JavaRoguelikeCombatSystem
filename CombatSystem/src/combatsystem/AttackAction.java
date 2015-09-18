@@ -8,7 +8,21 @@ public class AttackAction extends Action {
 
     @Override
     public String toString() {
-        return super.getAttacker().toString() + " attacking " + super.getTarget().toString();
+        return super.getSpark().toString() + " attacking " + super.getTarget().toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Action a;
+        try {
+            a = (Action) obj;
+        } catch (Exception ignore) {
+            return false;
+        }
+        if (a == this) {
+            return true;
+        }
+        return a.getSpark().equals(this.getSpark()) && a.getTarget().equals(this.getTarget());
     }
 
 }

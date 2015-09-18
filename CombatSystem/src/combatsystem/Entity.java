@@ -16,6 +16,7 @@ public class Entity {
         strength = str;
         weapons = new WeaponInventory(strength);
     }
+
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
         height = h;
         weight = w;
@@ -25,7 +26,7 @@ public class Entity {
     }
 
     public int getDamage(Weapon wp) {
-        if(wp == null){
+        if (wp == null) {
             return 0;
         }
         int finalDamage = 0;
@@ -63,10 +64,23 @@ public class Entity {
     public BodyPart getBodyPart(BodyComponent c) {
         return body.getBodyPart(c);
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "h: " + height + " w: " + weight + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " wpList: " + weapons.toString();
-                
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Entity e;
+        try {
+            e = (Entity) obj;
+        } catch (Exception ignore) {
+            return false;
+        }
+        if (e == this) {
+            return true;
+        }
+        return e.hashCode() == this.hashCode();
     }
 }

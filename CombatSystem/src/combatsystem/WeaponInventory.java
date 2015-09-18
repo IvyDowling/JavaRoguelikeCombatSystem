@@ -3,6 +3,7 @@ package combatsystem;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedList;
 
 public class WeaponInventory {
 
@@ -11,12 +12,16 @@ public class WeaponInventory {
     private int strength;
 
     public WeaponInventory(int str) {
+        allWeapons = new LinkedList<>();
         strength = str;
     }
 
     public WeaponInventory(int str, List<Weapon> wepList) {
+        allWeapons = new LinkedList<>();
         strength = str;
-        this.addWeapon(wepList);
+        if (wepList != null) {
+            this.addWeapon(wepList);
+        }
     }
 
     public void clearInventory() {
@@ -71,6 +76,9 @@ public class WeaponInventory {
     }
 
     public boolean addWeapon(Collection<Weapon> wps) {
+        if (wps == null) {
+            return false;
+        }
         int currentWeight = getCurrentWeaponWeight();
         Iterator it = wps.iterator();
         while (it.hasNext()) {
@@ -89,9 +97,11 @@ public class WeaponInventory {
     private int getCurrentWeaponWeight() {
         int i = 0;
         int wepWeight = 0;
-        while (i < allWeapons.size()) {
-            wepWeight = wepWeight + allWeapons.get(i).getWeight();
-            i++;
+        if (allWeapons != null) {
+            while (i < allWeapons.size()) {
+                wepWeight = wepWeight + allWeapons.get(i).getWeight();
+                i++;
+            }
         }
         return wepWeight;
     }

@@ -8,37 +8,38 @@ public class JUnit {
 
     @Test
     public void test() {
-        Queue<Action> actionQueue = new PriorityQueue<>(2, new Comparator() {
-            @Override
-            public int compare(Object t, Object t1) {
-                Action a1 = (Action) t;
-                Action a2 = (Action) t1;
-                if (a1.getAttacker().getDex() > a2.getTarget().getDex()) {
-                    //t is faster than t1
-                    return 1;
-                } else {
-                    //t is slower than t1
-                    return 0;
-                }
-            }
-        });
 
 //        System.out.println("Testing now");
-        List<Weapon> wepList = new LinkedList<>();
-        wepList.add(new Weapon(0, 0));
-        Entity e1 = new Entity(0, 0, 0, 0);
-        Entity e2 = new Entity(0, 0, 0, 0, wepList);
-        CombatSystem cs = new CombatSystem(e1, e2);
+        List<Weapon> wepList1 = new LinkedList<>();
+        List<Weapon> wepList2 = new LinkedList<>();
 
-        Action act = new AttackAction(e1, e2);
+        //l,w,bSharp,howSharp?
+        Weapon poleArm = new Weapon(5, 10);
+        Weapon longsword = new Weapon(3, 2, true, 10);
+        Weapon dagger = new Weapon(1, 1, true, 30);
+        Weapon battleAxe = new Weapon(2, 10, true, 10);
 
-        actionQueue.add(act);
+        wepList1.add(longsword);
+        wepList1.add(dagger);
+        wepList2.add(poleArm);
+        wepList2.add(dagger);
 
-        Action turn = actionQueue.remove();
-//        System.out.println(turn.toString());
+        //h,w,str,dex
+        Entity e1 = new Entity(6, 200, 50, 90, wepList1); // e1 is faster
+        Entity e2 = new Entity(6, 180, 70, 70, wepList2); // e2 is stronger
+        CombatSystem cs = new CombatSystem();
+
+        Action act1 = new AttackAction(e1, e2);
+        Action act2 = new DodgeAction(e2);
+
+        cs.addAction(act1);
+        cs.addAction(act2);
+
+        Action turn = cs.getNextAction();
 
         //aserts
-        assertEquals(turn, act);
-        assertEquals(e1.getHeight(), 0);
+        assertEquals(turn, act2);
+        assertTrue(e1.getDex() > e2.getDex());
+        assertTrue(e1.getDamage(dagger) < e2.getDamage(dagger));
     }
 }

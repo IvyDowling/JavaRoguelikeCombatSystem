@@ -2,16 +2,16 @@ package combatsystem;
 
 public abstract class Action {
 
-    private Entity attacker, target;
+    private Entity spark, target;
 
     //Always check dex to get priotiry
     public Action(Entity atkr, Entity victm) {
-        attacker = atkr;
+        spark = atkr;
         target = victm;
     }
 
-    public Entity getAttacker() {
-        return attacker;
+    public Entity getSpark() {
+        return spark;
     }
 
     public Entity getTarget() {
@@ -20,8 +20,7 @@ public abstract class Action {
 
     @Override
     public String toString() {
-        return getAttacker().toString() + " with " + getTarget().toString();
-
+        return getSpark().toString() + " with " + getTarget().toString();
     }
 
 }
