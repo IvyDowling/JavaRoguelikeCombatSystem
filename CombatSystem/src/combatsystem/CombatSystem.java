@@ -25,7 +25,7 @@ public class CombatSystem {
                 //that instigated the action in the queue
                 int e1Dex = ((Entity) a1.getSpark()).getDex();
                 int e2Dex = ((Entity) a2.getSpark()).getDex();
-                
+
                 //higher dex goes first
                 if (e1Dex > e2Dex) {
                     return 1;
@@ -38,14 +38,14 @@ public class CombatSystem {
             }
         });
     }
-    
 
-    public void addAction(Action a) {
-        if (a != null) {
-            if (a.getSpark() != null) {
-                actionQueue.add(a);
-            }
+    public boolean addAction(Action a) {
+        //if it's not null, the instigator is not null
+        //and if it's not already in the queue: add
+        if (a != null && a.getSpark() != null && !actionQueue.contains(a)) {
+            return actionQueue.add(a);
         }
+        return false;
     }
 
     public Action getNextAction() {

@@ -15,6 +15,7 @@ public class Entity {
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength);
+        body = new Body(h, w);
     }
 
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
@@ -23,6 +24,7 @@ public class Entity {
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength, wepList);
+        body = new Body(h, w);
     }
 
     public int getDamage(Weapon wp) {
