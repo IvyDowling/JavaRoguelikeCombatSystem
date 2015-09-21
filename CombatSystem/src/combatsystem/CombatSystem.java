@@ -52,4 +52,8 @@ public class CombatSystem {
         return actionQueue.remove();
     }
 
+    public boolean isEmpty() {
+        return actionQueue.isEmpty();
+    }
+
 }

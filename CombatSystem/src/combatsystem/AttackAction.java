@@ -2,27 +2,34 @@ package combatsystem;
 
 public class AttackAction extends Action {
 
-    public AttackAction(Entity atkr, Entity victm) {
+    private BodyComponent targetBodyComponent;
+
+    public AttackAction(Entity atkr, Entity victm, BodyComponent victimBC) {
         super(atkr, victm);
+        targetBodyComponent = victimBC;
+    }
+
+    public BodyComponent getBodyComponenet() {
+        return targetBodyComponent;
     }
 
     @Override
     public String toString() {
         return super.getSpark().toString() + " attacking " + super.getTarget().toString();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        Action a;
+        AttackAction a;
         try {
-            a = (Action) obj;
+            a = (AttackAction) obj;
         } catch (Exception ignore) {
             return false;
         }
         if (a == this) {
             return true;
         }
-        return a.getSpark().equals(this.getSpark()) && a.getTarget().equals(this.getTarget());
+        return a.getSpark().equals(this.getSpark()) && a.getTarget().equals(this.getTarget()) && (a.getBodyComponenet() == this.getBodyComponenet());
     }
 
 }
