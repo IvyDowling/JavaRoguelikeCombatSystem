@@ -1,5 +1,6 @@
 package combatsystem;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Entity {
@@ -18,6 +19,17 @@ public class Entity {
         body = new Body(h, w);
     }
 
+    public Entity(int h, int w, int str, int dex, Weapon wep) {
+        height = h;
+        weight = w;
+        dexterity = dex;
+        strength = str;
+        List<Weapon> temp = new LinkedList<>();
+        temp.add(wep);
+        weapons = new WeaponInventory(strength, temp);
+        body = new Body(h, w);
+    }
+
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
         height = h;
         weight = w;
@@ -27,18 +39,26 @@ public class Entity {
         body = new Body(h, w);
     }
 
-    public int getDamage(Weapon wp) {
-        if (wp == null) {
-            return 0;
-        }
+    public int getDamage() {
+        Weapon[] eqWp = weapons.getEquippedWeapons();
         int finalDamage = 0;
-        if (wp.isIsSharp()) {
-            finalDamage = finalDamage + wp.getSharpnessBonus();
-        }
-        if (strength > wp.getWeight()) {
-            finalDamage = finalDamage + (weight * strength);
-        } else {
-            finalDamage = 0;
+        int i = 0;
+        while (i < 2) {
+            if (eqWp[i] == null) {
+                finalDamage = finalDamage + strength;
+            } else {
+                if (eqWp[i].isIsSharp()) {
+                    finalDamage = finalDamage + eqWp[i].getSharpnessBonus();
+                }
+                if (strength > eqWp[i].getWeight()) {
+                    finalDamage = finalDamage + (weight * strength);
+                } else {
+                    //not strong enough to use wp
+                    //punch
+                    finalDamage = finalDamage + strength;
+                }
+            }
+            i++;
         }
         return finalDamage;
     }
