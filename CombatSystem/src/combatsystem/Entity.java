@@ -5,14 +5,11 @@ import java.util.List;
 
 public class Entity {
 
-    private int height, weight;
     private int strength, dexterity;
     private Body body;
     private WeaponInventory weapons;
 
     public Entity(int h, int w, int str, int dex) {
-        height = h;
-        weight = w;
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength);
@@ -20,10 +17,9 @@ public class Entity {
     }
 
     public Entity(int h, int w, int str, int dex, Weapon wep) {
-        height = h;
-        weight = w;
         dexterity = dex;
         strength = str;
+        //personally make the list for the lazy constructor
         List<Weapon> temp = new LinkedList<>();
         temp.add(wep);
         weapons = new WeaponInventory(strength, temp);
@@ -31,8 +27,6 @@ public class Entity {
     }
 
     public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
-        height = h;
-        weight = w;
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength, wepList);
@@ -51,7 +45,7 @@ public class Entity {
                     finalDamage = finalDamage + eqWp[i].getSharpnessBonus();
                 }
                 if (strength > eqWp[i].getWeight()) {
-                    finalDamage = finalDamage + (weight * strength);
+                    finalDamage = finalDamage + (getWeight() * strength);
                 } else {
                     //not strong enough to use wp
                     //punch
@@ -64,11 +58,11 @@ public class Entity {
     }
 
     public int getHeight() {
-        return height;
+        return body.getHeight();
     }
 
     public int getWeight() {
-        return weight;
+        return body.getWeight();
     }
 
     public int getStr() {
@@ -93,7 +87,7 @@ public class Entity {
 
     @Override
     public String toString() {
-        return "h: " + height + " w: " + weight + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " wpList: " + weapons.toString();
+        return "h: " + getHeight() + " w: " + getWeight() + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " wpList: " + weapons.toString();
     }
 
     @Override
