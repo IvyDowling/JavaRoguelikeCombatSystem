@@ -66,8 +66,10 @@ public class JUnit {
     }
 
     @Test
-    public void zeros() {
+    public void nullsAndZeros() {
         Entity zeroEntity = new Entity(0, 0, 0, 0, zeros); //has only the 0,0 weapon
         assertEquals(zeroEntity.getDamage(), 2 * zeroEntity.getStr()); //two empty hands = punch * 2
+
+        assertEquals(zeroEntity.getBody(), new Body(0,0));
     }
 }

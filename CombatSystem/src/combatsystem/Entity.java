@@ -83,6 +83,10 @@ public class Entity {
         return body;
     }
 
+    public WeaponInventory getWeaponInventory() {
+        return weapons;
+    }
+
     public BodyPart getBodyPart(BodyComponent c) {
         return body.getBodyPart(c);
     }
