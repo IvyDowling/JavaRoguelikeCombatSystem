@@ -1,13 +1,17 @@
 package combatsystem;
 
-public abstract class Action {
+public class Action {
 
     private Entity spark, target;
+    private BodyPart bodyPart;
+    private ActionExecution actionExe;
 
     //Always check dex to get priotiry
-    public Action(Entity atkr, Entity victm) {
+    public Action(Entity atkr, Entity victm, BodyPart bp, ActionExecution e) {
         spark = atkr;
         target = victm;
+        bodyPart = bp;
+        actionExe = e;
     }
 
     public Entity getSpark() {
@@ -18,9 +22,15 @@ public abstract class Action {
         return target;
     }
 
+    public void execute() {
+        if (actionExe != null) {
+            actionExe.onExecute(spark, target, bodyPart);
+        }
+    }
+
     @Override
     public String toString() {
-        return getSpark().toString() + " with " + getTarget().toString();
+        return getSpark().toString() + " with " + getTarget().toString() + "\n";
     }
 
 }
