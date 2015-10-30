@@ -43,10 +43,12 @@ public class CombatSystem {
         });
     }
 
-    public int popAction() {
-        Action a = actionQueue.poll();
-        if (a != null) {
-            return a.getTarget().getBodyPart(a.getBodyPart()).dealDamage(a.getSpark().getDamage());
+    public int popAction() { //int as current health
+        if (!actionQueue.isEmpty()) {
+            Action a = actionQueue.poll();
+            if (a != null) {
+                return a.getTarget().getBodyPart(a.getBodyPart()).dealDamage(a.getSpark().getDamage());
+            }
         }
         return -1; //err
     }
@@ -61,17 +63,20 @@ public class CombatSystem {
     }
 
     public Action getNextAction() {
-        return actionQueue.remove();
+        if(actionQueue.isEmpty()){
+            return null;
+        }
+        return actionQueue.peek();
     }
 
     public boolean isEmpty() {
         return actionQueue.isEmpty();
     }
 
-    public void clear(){
+    public void clear() {
         actionQueue.clear();
     }
-            
+
     @Override
     public String toString() {
         String out = "";

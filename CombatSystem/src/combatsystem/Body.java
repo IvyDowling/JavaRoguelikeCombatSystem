@@ -9,16 +9,15 @@ public class Body {
     public Body(double h, int w) {
         height = h;
         weight = w;
-        int div = w; // currently just the total weight
+        int div = w / 2; // half for arms & legs
         lArm = new BodyPart(div, BodyComponent.LARM);
         rArm = new BodyPart(div, BodyComponent.RARM);
         lLeg = new BodyPart(div, BodyComponent.LLEG);
         rLeg = new BodyPart(div, BodyComponent.RLEG);
-        torso = new BodyPart(div, BodyComponent.TORSO);
-        head = new BodyPart(div, BodyComponent.HEAD);
+        //head & torso are critical so they have more health
+        torso = new BodyPart(w, BodyComponent.TORSO);
+        head = new BodyPart(w, BodyComponent.HEAD);
     }
-    
-    
 
     public boolean isImpaired() {
         int im = 0;
@@ -45,8 +44,8 @@ public class Body {
         }
         return im > 2;
     }
-    
-    public BodyPart getBodyPart(BodyPart b){
+
+    public BodyPart getBodyPart(BodyPart b) {
         switch (b.getComponent()) {
             case RARM:
                 return rArm;

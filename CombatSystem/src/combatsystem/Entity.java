@@ -32,7 +32,7 @@ public class Entity {
         weapons = new WeaponInventory(strength, wep);
         body = new Body(h, w);
     }
-    
+
     public Entity(double h, int w, int str, int dex, List<Weapon> wepList) {
         dexterity = dex;
         strength = str;
@@ -45,20 +45,32 @@ public class Entity {
         int finalDamage = 0;
         int i = 0;
         while (i < 2) {
+            int addDamage = 0;
             if (eqWp[i] == null) {
-                finalDamage = finalDamage + strength;
+                addDamage = addDamage + strength;
             } else {
                 if (eqWp[i].isIsSharp()) {
-                    finalDamage = finalDamage + eqWp[i].getSharpnessBonus();
+                    addDamage = addDamage + eqWp[i].getSharpnessBonus();
                 }
                 if (strength > eqWp[i].getWeight()) {
-                    finalDamage = finalDamage + (getWeight() * strength);
+                    addDamage = addDamage + (getWeight() * strength);
                 } else {
                     //not strong enough to use wp
                     //punch
-                    finalDamage = finalDamage + strength;
+                    addDamage = addDamage + strength;
                 }
             }
+            //IF YOUR ARMS ARE IMPAIRED YOU DO 1/4 LESS DAMAGE!
+            if (body.lArm.isIsImpaired()) {
+                addDamage = addDamage - (addDamage / 4);
+            }
+            if (body.rArm.isIsImpaired()) {
+                addDamage = addDamage - (addDamage / 4);
+            }
+            if (addDamage < 0) {
+                addDamage = 0;
+            }
+            finalDamage = finalDamage + addDamage;
             i++;
         }
         return finalDamage;
@@ -77,7 +89,15 @@ public class Entity {
     }
 
     public int getDex() {
-        return dexterity;
+        //IF YOUR LEG IS IMPAIRED YOU ARE SLOWER!
+        int tempDex = dexterity;
+        if (body.lLeg.isIsImpaired()) {
+            tempDex = tempDex - (tempDex / 4);
+        }
+        if (body.rLeg.isIsImpaired()) {
+            tempDex = tempDex - (tempDex / 4);
+        }
+        return tempDex;
     }
 
     public Body getBody() {
@@ -87,7 +107,7 @@ public class Entity {
     public WeaponInventory getWeaponInventory() {
         return weapons;
     }
-    
+
     public BodyPart getBodyPart(BodyPart c) {
         return body.getBodyPart(c);
     }
