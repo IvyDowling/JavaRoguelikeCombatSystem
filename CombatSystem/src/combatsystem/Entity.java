@@ -9,14 +9,14 @@ public class Entity {
     private Body body;
     private WeaponInventory weapons;
 
-    public Entity(int h, int w, int str, int dex) {
+    public Entity(double h, int w, int str, int dex) {
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength);
         body = new Body(h, w);
     }
 
-    public Entity(int h, int w, int str, int dex, Weapon wep) {
+    public Entity(double h, int w, int str, int dex, Weapon wep) {
         dexterity = dex;
         strength = str;
         //personally make the list for the lazy constructor
@@ -26,7 +26,14 @@ public class Entity {
         body = new Body(h, w);
     }
 
-    public Entity(int h, int w, int str, int dex, List<Weapon> wepList) {
+    public Entity(double h, int w, int str, int dex, Weapon[] wep) {
+        dexterity = dex;
+        strength = str;
+        weapons = new WeaponInventory(strength, wep);
+        body = new Body(h, w);
+    }
+    
+    public Entity(double h, int w, int str, int dex, List<Weapon> wepList) {
         dexterity = dex;
         strength = str;
         weapons = new WeaponInventory(strength, wepList);
@@ -57,7 +64,7 @@ public class Entity {
         return finalDamage;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return body.getHeight();
     }
 
@@ -79,6 +86,10 @@ public class Entity {
 
     public WeaponInventory getWeaponInventory() {
         return weapons;
+    }
+    
+    public BodyPart getBodyPart(BodyPart c) {
+        return body.getBodyPart(c);
     }
 
     public BodyPart getBodyPart(BodyComponent c) {

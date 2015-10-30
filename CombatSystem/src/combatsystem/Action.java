@@ -6,12 +6,14 @@ public class Action {
     private BodyPart bodyPart;
     private ActionExecution actionExe;
 
-    //Always check dex to get priotiry
-    public Action(Entity atkr, Entity victm, BodyPart bp, ActionExecution e) {
+    public Action(Entity atkr, Entity victm, BodyPart bp) {
         spark = atkr;
         target = victm;
         bodyPart = bp;
-        actionExe = e;
+    }
+
+    public BodyPart getBodyPart() {
+        return bodyPart;
     }
 
     public Entity getSpark() {
@@ -20,12 +22,6 @@ public class Action {
 
     public Entity getTarget() {
         return target;
-    }
-
-    public void execute() {
-        if (actionExe != null) {
-            actionExe.onExecute(spark, target, bodyPart);
-        }
     }
 
     @Override

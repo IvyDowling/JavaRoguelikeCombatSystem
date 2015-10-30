@@ -2,21 +2,36 @@ package combatsystem;
 
 public class Weapon {
 
+    private String name = "";
     private boolean isSharp;
     private int length;
     private int weight;
     private int sharpnessBonus;
 
-    public Weapon(int l, int w, boolean sharp, int sharpBonus) {
+    public Weapon(String n, int l, int w, int sharpBonus) {
+        name = n;
         setLength(l);
         setWeight(w);
-        setSharp(sharp, sharpBonus);
+        setSharp(sharpBonus);
+    }
+
+    public Weapon(int l, int w, int sharpBonus) {
+        setLength(l);
+        setWeight(w);
+        setSharp(sharpBonus);
+    }
+
+    public Weapon(String n, int l, int w) {
+        name = n;
+        setLength(l);
+        setWeight(w);
+        setSharp(0);
     }
 
     public Weapon(int l, int w) {
         setLength(l);
         setWeight(w);
-        setSharp(false, 0);
+        setSharp(0);
     }
 
     private void setLength(int l) {
@@ -31,13 +46,18 @@ public class Weapon {
         }
     }
 
-    private void setSharp(boolean sh, int bonus) {
-        isSharp = sh;
-        if (sh && bonus > 0) {
+    private void setSharp(int bonus) {
+        if (bonus > 0) {
             sharpnessBonus = bonus;
+            isSharp = true;
         } else {
             sharpnessBonus = 0;
+            isSharp = false;
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean isIsSharp() {
@@ -58,9 +78,9 @@ public class Weapon {
         }
         return 0;
     }
-    
+
     @Override
-    public String toString(){
-        return "length: " + getLength() + "weight: " + getWeight() + "sharp? " + isIsSharp() + " bonus " + getSharpnessBonus();
+    public String toString() {
+        return "\n" + name + ", length: " + getLength() + ", weight: " + getWeight() + ", sharpness bonus: " + getSharpnessBonus();
     }
 }

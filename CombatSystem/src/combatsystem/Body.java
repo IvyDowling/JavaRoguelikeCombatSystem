@@ -2,17 +2,67 @@ package combatsystem;
 
 public class Body {
 
-    private int height, weight;
-    BodyPart lArm, rArm, lLeg, rLeg, torso;
+    private double height;
+    private int weight;
+    BodyPart lArm, rArm, lLeg, rLeg, torso, head;
 
-    public Body(int h, int w) {
+    public Body(double h, int w) {
         height = h;
         weight = w;
-        lArm = new BodyPart(BodyComponent.LARM);
-        rArm = new BodyPart(BodyComponent.RARM);
-        lLeg = new BodyPart(BodyComponent.LLEG);
-        rLeg = new BodyPart(BodyComponent.RLEG);
-        torso = new BodyPart(BodyComponent.TORSO);
+        int div = w; // currently just the total weight
+        lArm = new BodyPart(div, BodyComponent.LARM);
+        rArm = new BodyPart(div, BodyComponent.RARM);
+        lLeg = new BodyPart(div, BodyComponent.LLEG);
+        rLeg = new BodyPart(div, BodyComponent.RLEG);
+        torso = new BodyPart(div, BodyComponent.TORSO);
+        head = new BodyPart(div, BodyComponent.HEAD);
+    }
+    
+    
+
+    public boolean isImpaired() {
+        int im = 0;
+        if (lArm.isIsImpaired()) {
+            im++;
+        }
+        if (rArm.isIsImpaired()) {
+            im++;
+        }
+        if (lLeg.isIsImpaired()) {
+            im++;
+        }
+        if (rLeg.isIsImpaired()) {
+            im++;
+        }
+        if (head.isIsImpaired()) {
+            im++;
+        }
+        if (torso.isIsImpaired()) {
+            im++;
+        }
+        if (lArm.isIsImpaired()) {
+            im++;
+        }
+        return im > 2;
+    }
+    
+    public BodyPart getBodyPart(BodyPart b){
+        switch (b.getComponent()) {
+            case RARM:
+                return rArm;
+            case LARM:
+                return lArm;
+            case LLEG:
+                return lLeg;
+            case RLEG:
+                return rLeg;
+            case TORSO:
+                return torso;
+            case HEAD:
+                return head;
+            default:
+                return null;
+        }
     }
 
     public BodyPart getBodyPart(BodyComponent c) {
@@ -27,12 +77,14 @@ public class Body {
                 return rLeg;
             case TORSO:
                 return torso;
+            case HEAD:
+                return head;
             default:
                 return null;
         }
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -76,6 +128,6 @@ public class Body {
 
     @Override
     public String toString() {
-        return lArm.toString() + " " + rArm.toString() + " " + lLeg.toString() + " " + rLeg.toString() + " " + torso.toString();
+        return lArm.toString() + " " + rArm.toString() + " " + lLeg.toString() + " " + rLeg.toString() + " " + torso.toString() + " " + head.toString();
     }
 }

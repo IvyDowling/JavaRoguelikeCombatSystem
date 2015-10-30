@@ -24,6 +24,16 @@ public class WeaponInventory {
         }
     }
 
+    public WeaponInventory(int str, Weapon[] wep) {
+        allWeapons = new LinkedList<>();
+        strength = str;
+        for (Weapon w : wep) {
+            if (w != null) {
+                this.addWeapon(w);
+            }
+        }
+    }
+
     public void clearInventory() {
         allWeapons.clear();
     }
@@ -63,11 +73,11 @@ public class WeaponInventory {
         return allWeapons.contains((Weapon) wp);
     }
 
-    public boolean addWeapon(Weapon wp) {
+    public final boolean addWeapon(Weapon wp) {
         if (wp == null) {
             return false;
         }
-        if ((wp.getWeight() + getCurrentWeaponWeight()) > strength) {
+        if ((wp.getWeight() + getCurrentWeaponWeight()) > strength) {//CAN'T WIELD!
             return false;
         } else {
             allWeapons.add(wp);

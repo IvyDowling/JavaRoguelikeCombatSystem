@@ -3,6 +3,7 @@ package combatsystem;
 public class BodyPart {
 
     private int health;
+    private boolean isWounded;
     private boolean isImpaired;
     private boolean isArmored;
     private BodyComponent component;
@@ -20,12 +21,31 @@ public class BodyPart {
         component = bc;
     }
 
+    public int dealDamage(int i) {
+        if (isImpaired) {
+            return 0;
+        }
+        health = health - i;
+        if (health < (health / 2)) {
+            isWounded = true;
+        }
+        if (health < 0) {
+            isImpaired = true;
+            health = 0;
+        }
+        return health;
+    }
+
     public int getHealth() {
         return health;
     }
 
     public boolean isIsImpaired() {
         return isImpaired;
+    }
+
+    public boolean isWounded() {
+        return isWounded;
     }
 
     public boolean isIsArmored() {

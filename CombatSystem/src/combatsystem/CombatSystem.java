@@ -3,6 +3,7 @@ package combatsystem;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Random;
 
 public class CombatSystem {
 
@@ -26,10 +27,13 @@ public class CombatSystem {
                 int e1Dex = ((Entity) a1.getSpark()).getDex();
                 int e2Dex = ((Entity) a2.getSpark()).getDex();
 
-                //higher dex goes first
-                if (e1Dex > e2Dex) {
+                //now, we'll random the dex value from 0-dex
+                //higher goes first
+                int e1Chance = new Random().nextInt(e1Dex);
+                int e2Chance = new Random().nextInt(e2Dex);
+                if (e1Chance > e2Chance) {
                     return 1;
-                } else if (e1Dex == e2Dex) {
+                } else if (e1Chance == e2Chance) {
                     //tie goes to the instigator
                     return 1;
                 } else {
@@ -37,6 +41,14 @@ public class CombatSystem {
                 }
             }
         });
+    }
+
+    public int popAction() {
+        Action a = actionQueue.poll();
+        if (a != null) {
+            return a.getTarget().getBodyPart(a.getBodyPart()).dealDamage(a.getSpark().getDamage());
+        }
+        return -1; //err
     }
 
     public boolean addAction(Action a) {
@@ -56,6 +68,10 @@ public class CombatSystem {
         return actionQueue.isEmpty();
     }
 
+    public void clear(){
+        actionQueue.clear();
+    }
+            
     @Override
     public String toString() {
         String out = "";
