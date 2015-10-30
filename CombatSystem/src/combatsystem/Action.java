@@ -4,7 +4,6 @@ public class Action {
 
     private Entity spark, target;
     private BodyPart bodyPart;
-    private ActionExecution actionExe;
 
     public Action(Entity atkr, Entity victm, BodyPart bp) {
         spark = atkr;
