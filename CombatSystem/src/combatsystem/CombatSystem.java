@@ -32,25 +32,28 @@ public class CombatSystem {
                 int e1Chance = new Random().nextInt(e1Dex);
                 int e2Chance = new Random().nextInt(e2Dex);
                 if (e1Chance > e2Chance) {
+//                    System.out.println(a1.toString());
                     return 1;
                 } else if (e1Chance == e2Chance) {
                     //tie goes to the instigator
+//                    System.out.println(a1.toString());
                     return 1;
                 } else {
+//                    System.out.println(a2.toString());
                     return 0;
                 }
             }
         });
     }
 
-    public int popAction() { //int as current health
+    public Action pop() {
         if (!actionQueue.isEmpty()) {
             Action a = actionQueue.poll();
             if (a != null) {
-                return a.getTarget().getBodyPart(a.getBodyPart()).dealDamage(a.getSpark().getDamage());
+                a.getTarget().getBodyPart(a.getBodyPart()).dealDamage(a.getSpark().getDamage());
             }
         }
-        return -1; //err
+        return null;
     }
 
     public boolean addAction(Action a) {
@@ -62,8 +65,8 @@ public class CombatSystem {
         return false;
     }
 
-    public Action getNextAction() {
-        if(actionQueue.isEmpty()){
+    public Action peek() {
+        if (actionQueue.isEmpty()) {
             return null;
         }
         return actionQueue.peek();

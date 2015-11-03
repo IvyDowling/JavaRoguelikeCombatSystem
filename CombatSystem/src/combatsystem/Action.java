@@ -25,7 +25,7 @@ public class Action {
 
     @Override
     public String toString() {
-        return getSpark().toString() + " with " + getTarget().toString() + "\n";
+        return getSpark().simpleToString() + " at: " + getTarget().simpleToString() + "\n";
     }
 
 }

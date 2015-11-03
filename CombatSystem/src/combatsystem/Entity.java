@@ -8,20 +8,32 @@ public class Entity {
     private int strength, dexterity;
     private Body body;
     private WeaponInventory weapons;
+    private String name;
 
-    public Entity(double h, int w, int str, int dex) {
-        dexterity = dex;
-        strength = str;
-        weapons = new WeaponInventory(strength);
-        body = new Body(h, w);
+    public Entity(String nm, double h, int w, int str, int dex, List<Weapon> wepList) {
+        this(h, w, str, dex, (Weapon[]) wepList.toArray());
+        name = nm;
+    }
+
+    public Entity(String nm, double h, int w, int str, int dex, Weapon[] wep) {
+        this(h, w, str, dex, wep);
+        name = nm;
+    }
+
+    public Entity(String nm, double h, int w, int str, int dex, Weapon wep) {
+        this(h, w, str, dex, wep);
+        name = nm;
+    }
+
+    public Entity(double h, int w, int str, int dex, List<Weapon> wepList) {
+        this(h, w, str, dex, (Weapon[]) wepList.toArray());
     }
 
     public Entity(double h, int w, int str, int dex, Weapon wep) {
         dexterity = dex;
         strength = str;
-        //personally make the list for the lazy constructor
-        List<Weapon> temp = new LinkedList<>();
-        temp.add(wep);
+        //personally make the array for the lazy constructor
+        Weapon[] temp = {wep};
         weapons = new WeaponInventory(strength, temp);
         body = new Body(h, w);
     }
@@ -33,11 +45,20 @@ public class Entity {
         body = new Body(h, w);
     }
 
-    public Entity(double h, int w, int str, int dex, List<Weapon> wepList) {
+    public Entity(double h, int w, int str, int dex) {
         dexterity = dex;
         strength = str;
-        weapons = new WeaponInventory(strength, wepList);
+        weapons = new WeaponInventory(strength);
         body = new Body(h, w);
+    }
+
+    public Entity setName(String s) {
+        name = s;
+        return this;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getDamage() {
@@ -97,6 +118,9 @@ public class Entity {
         if (body.rLeg.isIsImpaired()) {
             tempDex = tempDex - (tempDex / 4);
         }
+        if (tempDex < 0) {
+            return 0;
+        }
         return tempDex;
     }
 
@@ -116,9 +140,13 @@ public class Entity {
         return body.getBodyPart(c);
     }
 
+    public String simpleToString() {
+        return name + "-- h: " + getHeight() + " w: " + getWeight() + " str: " + strength + " dex: " + dexterity;
+    }
+
     @Override
     public String toString() {
-        return "h: " + getHeight() + " w: " + getWeight() + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " " + weapons.toString() + "\n";
+        return name + "-- h: " + getHeight() + " w: " + getWeight() + " str: " + strength + " dex: " + dexterity + " body state: " + body.toString() + " " + weapons.toString() + "\n";
     }
 
     @Override
